@@ -1,0 +1,26 @@
+recipe: default.v1
+assistant_id: form_bot
+language: en
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+    token_pattern: (?u)\b\w+\b
+  - name: "tokenizer_jieba"
+  - name: "ner_mitie"
+  - name: "ner_synonyms"
+  - name: "intent_entity_featurizer_regex"
+  - name: DIETClassifier
+    epochs: 1
+    run_eagerly: True
+  - name: EntitySynonymMapper
+  - name: HFTransformersNLP
+    model_weights: "bert-base-chinese"
+    model_name: "bert"
+
+policies:
+  - name: TEDPolicy
+    epochs: 1
+  - name: AugmentedMemoizationPolicy
+  - name: RulePolicy
