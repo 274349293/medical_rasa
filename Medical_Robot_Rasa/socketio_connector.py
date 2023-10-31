@@ -171,4 +171,3 @@ class SocketIOInput(InputChannel):
             await on_new_message(message_rasa)
 
         return socketio_webhook
-
